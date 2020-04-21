@@ -1,0 +1,117 @@
+#流程控制 if else 迴圈
+if else
+In [6]:
+a=3
+b=4
+if a <= b:
+    print("b是比較大的數")
+else:
+    print("a是比較大的數")
+b是比較大的數
+
+for 迴圈
+In [8]:
+sum=0
+for count in range(1,11,1):  #1 2 3 4 5 6 7 8 9 10 沒有11, step:1
+    sum = sum + count
+print(sum)
+55
+
+In [9]:
+sum=0
+for count in range(1,11):  #1 2 3 4 5 6 7 8 9 10 沒有11, step:1
+    sum = sum + count
+print(sum)
+55
+In [10]:
+sum=0
+for count in range(11):  #1 2 3 4 5 6 7 8 9 10 沒有11, step:1
+    sum = sum + count
+print(sum)
+55
+In [11]:
+mylist="for statement"
+for word in mylist:
+    print(word)
+else:
+    print("end list")
+f
+o
+r
+ 
+s
+t
+a
+t
+e
+m
+e
+n
+t
+end list
+
+#雞兔同籠 一個農場雞兔共有35頭，94隻腳，共有幾隻雞，幾隻兔? 邏輯題目
+In [4]:
+for chicken in range(0,35):
+    rabbit=35-chicken
+    if (2*chicken+4*rabbit)==94:
+        print("雞有",chicken,"隻, 兔子有",rabbit,"隻")
+        break
+else:
+    print("無解")
+雞有 23 隻, 兔子有 12 隻
+while迴圈
+
+In [5]:     #老師上課講解內容 大雄20年後才有辦法買他想要的東西
+sum=0
+count=1
+while count <=10:
+    sum=sum+count
+    count=count+1
+print("1+2+3+...+10=", sum)
+1+2+3+...+10= 55
+本金10000元，年利率1%，請問多久銀行存款會加倍
+
+In [6]:
+x=10000
+year=0
+while x <= 20000:
+    year += 1
+    x=x*1.01
+print(str(year),"年以後，存款加倍，為",int(x),"元")
+70 年以後，存款加倍，為 20067 元
+
+猜數字
+
+In [7]:
+number=11
+while True:
+    guess=int(input('請輸入1~100之間的數字：'))
+    if guess == number:
+        print('你猜對了，數字是：',number)
+        break
+    else:
+        print('猜錯了')
+請輸入1~100之間的數字：1
+猜錯了
+請輸入1~100之間的數字：2
+猜錯了
+請輸入1~100之間的數字：3
+猜錯了
+請輸入1~100之間的數字：11
+你猜對了，數字是： 11
+
+In [9]:
+import random
+number=random.randint(1,10)
+while True:
+    guess=int(input('請輸入1~10之間的數字：'))
+    if guess == number:
+        print('你猜對了，數字是：',number)
+        break
+    else:
+        print('猜錯了')
+請輸入1~10之間的數字：1
+猜錯了
+請輸入1~10之間的數字：2
+你猜對了，數字是： 2
