@@ -1,0 +1,147 @@
+
+Numpy 套件
+
+In [2]:
+a=[1,2,3,4,5]
+print(a*3)
+[1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 1, 2, 3, 4, 5]
+numpy套件的ndarray型態，提供element-wise的操作
+
+In [3]:
+import numpy as np
+b = np.array([1,2,3,4,5])
+print(b*3)
+[ 3  6  9 12 15]
+In [7]:
+print(type(b))
+print(b.ndim) #ndarray的維度
+print(b.shape) #ndarray的shape
+print(b.dtype) #ndarray的資料型態
+<class 'numpy.ndarray'>
+1
+(5,)
+int32
+
+In [16]:
+print(np.zeros(6)) #產生六個元素均為0的一維array
+print(np.zeros((3,6))) #產生18個元素均為0的二維array
+print(np.zeros((2,3,6))) #產生36個元素均為0的三維array
+[0. 0. 0. 0. 0. 0.]
+[[0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0.]
+ [0. 0. 0. 0. 0. 0.]]
+[[[0. 0. 0. 0. 0. 0.]
+  [0. 0. 0. 0. 0. 0.]
+  [0. 0. 0. 0. 0. 0.]]
+
+ [[0. 0. 0. 0. 0. 0.]
+  [0. 0. 0. 0. 0. 0.]
+  [0. 0. 0. 0. 0. 0.]]]
+  
+In [23]:
+a=np.zeros(16)
+print(a)
+print(a.shape)
+b=a.reshape((4,4)) #改變資料的維度為4x4
+print(b)
+print(b.shape)
+[0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+(16,)
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+(4, 4)
+ndarray的進階操作
+In [24]:
+print(np.arange(11))  #產生一個0~10的一維陣列
+[ 0  1  2  3  4  5  6  7  8  9 10]
+
+In [27]: #一維
+my_array = np.arange(10)
+print(my_array)
+print(my_array[0])
+print(my_array[0:5]) #取0, 1,  2, 3, 4位置的值
+[0 1 2 3 4 5 6 7 8 9]
+0
+[0 1 2 3 4]
+
+In [31]:  #二維陣列
+a=np.array([[0,1,2,3,4],[5,6,7,8,9]])
+print(a)
+b=np.array([np.arange(0,5),np.arange(5,10)])
+print(b)
+c=np.array(np.arange(0,10).reshape((2,5)))
+print(c)
+[[0 1 2 3 4]
+ [5 6 7 8 9]]
+[[0 1 2 3 4]
+ [5 6 7 8 9]]
+[[0 1 2 3 4]
+ [5 6 7 8 9]]
+二維ndarray取值
+
+In [14]:
+import numpy as np
+my_2d_array=np.array(np.arange(0,10).reshape((2,5)))
+print(my_2d_array)
+print(my_2d_array[0,:]) #第0列的元素
+print(my_2d_array[1,]) #第1列的元素
+print(my_2d_array[:,0]) #第0欄的元素
+print(my_2d_array[1, 1]) #第1列第1欄的元素
+[[0 1 2 3 4]
+ [5 6 7 8 9]]
+[0 1 2 3 4]
+[5 6 7 8 9]
+[0 5]
+6
+假設有六個組別"Modern Web", "DevOps", "Cloud", "Big Data", "Security", "自我挑戰組"
+其參加人數分別為56, 8, 19, 14, 6, 71人
+In [1]:
+import numpy as np
+groups = ["Modern Web", "DevOps", "Cloud", "Big Data", "Security", "自我挑戰組"]
+ironman = [56, 8, 19, 14, 6, 71]
+groups_array = np.array(groups)
+ironman_array = np.array(ironman)
+print(groups_array)
+print(ironman_array)
+['Modern Web' 'DevOps' 'Cloud' 'Big Data' 'Security' '自我挑戰組']
+[56  8 19 14  6 71]
+大於10人的組別有哪些?
+
+In [3]:
+#用人數篩選
+print(ironman_array >= 10)
+print(groups_array[ironman_array>=10])
+[ True False  True  True False  True]
+['Modern Web' 'Cloud' 'Big Data' '自我挑戰組']
+除了自我挑戰組之外的組別，人數為何?
+
+In [5]:
+#用組別去篩選人數
+print(groups_array != "自我挑戰組")
+print(ironman_array[groups_array != "自我挑戰組"])
+[ True  True  True  True  True False]
+[56  8 19 14  6]
+ndarray 空值 nan 無限大 inf
+
+In [7]:
+nan_array = np.array([56, 8, 19, 14, 6, np.nan])
+print(nan_array)
+[56.  8. 19. 14.  6. nan]
+生成10組常態分配(平均為0，標準差1 的常態分配)隨機變數
+#常態分布 normal distribution
+
+
+In [8]:
+normal_samples = np.random.normal(size=10)
+print(normal_samples)
+[-1.73828481  0.6493435  -0.17811903 -0.05893562 -1.20263501  2.67870769
+  0.51285945  0.05154645  1.61800877  0.24406147]
+生成10組介於0~1之間的隨機變數
+
+In [9]:
+uniform_samples = np.random.uniform(size=10) #亂數產生
+print(uniform_samples) #印出
+[0.16549476 0.50466481 0.12172286 0.45124361 0.17694517 0.26844731
+ 0.40137812 0.3589618  0.95915186 0.15919877]
