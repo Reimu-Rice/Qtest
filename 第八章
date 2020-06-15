@@ -1,0 +1,140 @@
+
+函數
+傳統的寫法
+In [1]:
+import math
+radius = int(input("請輸入圓的半徑："))
+print("圓的面積為", radius*radius*math.pi)
+請輸入圓的半徑：10
+圓的面積為 314.1592653589793
+面積計算函數
+In [2]:
+# 自訂函數
+import math
+def circle_area(radius):
+    area = math.pi * radius * radius
+    return area
+
+#呼叫自訂函數
+print(circle_area(10))
+314.1592653589793
+函數多型
+In [3]:
+# 定義一個可以計算面積，以及周長的函數
+import math
+def circle(radius, area = True):
+    circle_area = math.pi * radius * radius
+    circle_circum= 2 * radius * math.pi
+    if area == True:
+        return circle_area
+    else:
+        return circle_circum
+
+# 呼叫函數
+print(circle(10)) #傳回圓面積
+print(circle(10, False)) #傳回周長
+314.1592653589793
+62.83185307179586
+交換排序法(Exchange Sort)
+In [4]:
+import random 
+def exchange_sort(input_list):
+    s = input_list
+    for x  in range(0, len(input_list)-1):
+        for y in range(x+1, len(input_list)):
+            if s[x] > s[y]:
+                # 交換兩數
+                temp = s[x]
+                s[x] = s[y]
+                s[y] = temp
+    return s
+
+my_vector = random.sample(range(0,100), 10) # 產生十個0~99的隨機數字
+print(my_vector)
+print(exchange_sort(my_vector))
+[50, 12, 56, 0, 53, 35, 88, 67, 7, 47]
+[0, 7, 12, 35, 47, 50, 53, 56, 67, 88]
+函數多回傳值
+In [5]:
+def ironmen_stats(ironmen_list):
+    max_ironmen = max(ironmen_list)
+    min_ironmen = min(ironmen_list)
+    len_ironmen = len(ironmen_list)
+    sum_ironmen = sum(ironmen_list)
+    return max_ironmen, min_ironmen, len_ironmen, sum_ironmen
+
+ironmen = [58, 10, 21, 17, 32, 9]
+max_ironmen, min_ironmen, ttl_groups, ttl_ironmen = ironmen_stats(ironmen)
+print("最多:",max_ironmen,"人\n", "最少:",min_ironmen,"人\n","總共分組：",ttl_groups,"組\n","總共鐵人:",ttl_ironmen,"人\n")
+最多: 58 人
+ 最少: 9 人
+ 總共分組： 6 組
+ 總共鐵人: 147 人
+
+python的lambda函數
+In [6]:
+#a = a+b
+#a += b
+#傳統的函數寫法
+def max(a,b):
+    return a if a>b else b
+print(max(10,3))
+10
+lambda arg1, arg2...: expression
+In [7]:
+max = lambda a,b: a if a>b else b
+print(max(4,11))
+11
+lambda的應用
+In [8]:
+#list的itemwise應用
+import numpy as np
+ironmen = np.array([50, 8, 16, 12, 6, 62])
+print(ironmen*2)
+[100  16  32  24  12 124]
+In [9]:
+#lambda寫法
+#map(func,list)  把list丟入function裡面計算
+#ironmen=[50, 8, 16, 12, 6, 62]
+#a=list(map(lambda x: x*2,ironmen))
+#print(a)
+print(list(map(lambda x:x*2,[50, 8, 16, 12, 6, 62] )))
+[100, 16, 32, 24, 12, 124]
+錯誤處理
+In [10]:
+def my_square(a):
+    try:
+        ans=a**2
+        return ans
+    except:
+        print("請輸入數字")
+print(my_square(2))
+print(my_square('b'))
+4
+請輸入數字
+None
+python可以使用args，或者kwargs(帶有鍵值key)
+來處理彈性數量的輸入
+In [11]:
+# 傳統的寫法
+def ironmen_print(a):
+    for i in a:
+        print(i)
+ironmen=[51,8,18,13,6]
+ironmen_print(ironmen)
+51
+8
+18
+13
+6
+In [12]:
+def ironmen_print(*args):
+    for i in args:
+        print(i)
+ironmen_print(51,8,18,13,6,11)
+51
+8
+18
+13
+6
+11
