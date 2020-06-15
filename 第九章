@@ -1,0 +1,71 @@
+
+Chap9:Iterator
+python 的iterator允許物件進行分次處理
+通常會呼叫iter定義iterator物件，搭配next函式進行下一個值呼叫
+In [1]:
+mylist=[1,2,3,4]
+for i in mylist:
+    print(i)
+1
+2
+3
+4
+In [2]:
+mylist=[1,2,3,4]
+mylist_i=iter(mylist)
+print(next(mylist_i))
+print(next(mylist_i))
+print(next(mylist_i))
+print(next(mylist_i))
+1
+2
+3
+4
+自訂iterator
+In [3]:
+class mynumbers:
+    def __init__(self):
+        self.a=1
+    def __iter__(self):  
+        return self
+    def __next__(self):
+        x=self.a
+        self.a += 1
+        return x
+my_num=mynumbers()
+print(next(my_num))
+print(next(my_num))
+print(next(my_num))
+print(next(my_num))
+print(next(my_num))
+1
+2
+3
+4
+5
+費氏數列
+In [4]:
+class Fib:                                        
+    def __init__(self):                      
+        self.a, self.b = 0, 1
+
+    def __iter__(self):                           
+        return self
+
+    def __next__(self):                                        
+        self.a, self.b = self.b, self.a + self.b
+        return self.a
+
+a=Fib()  
+for i in range(10):
+  print(next(a))
+1
+1
+2
+3
+5
+8
+13
+21
+34
+55
