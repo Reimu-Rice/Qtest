@@ -1,0 +1,219 @@
+Pandas Data Frame
+
+In [1]:
+import pandas as pd
+
+groups = ["Modern Web", "DevOps", "Cloud", "Big Data", "Security", "自我挑戰組"]
+ironmen = [59, 9, 19, 14, 6, 77]
+ironmen_dict = {
+                "groups": groups,
+                "ironmen": ironmen
+}
+ironmen_df = pd.DataFrame(ironmen_dict)
+ironmen_df
+Out[1]:
+groups	ironmen
+0	Modern Web	59
+1	DevOps	9
+2	Cloud	19
+3	Big Data	14
+4	Security	6
+5	自我挑戰組	77
+In [2]:
+print(ironmen_df.ndim)
+print("---") # 分隔線
+print(ironmen_df.shape)
+print("---") # 分隔線
+print(ironmen_df.dtypes)
+2
+---
+(6, 2)
+---
+groups     object
+ironmen     int64
+dtype: object
+In [3]:
+print(ironmen_df.sum()) # 計算總鐵人數
+print(ironmen_df.mean()) # 計算平均鐵人數
+print(ironmen_df.median()) # 計算中位數
+print(ironmen_df.describe()) # 描述統計
+groups     Modern WebDevOpsCloudBig DataSecurity自我挑戰組
+ironmen                                           184
+dtype: object
+ironmen    30.666667
+dtype: float64
+ironmen    16.5
+dtype: float64
+         ironmen
+count   6.000000
+mean   30.666667
+std    29.803803
+min     6.000000
+25%    10.250000
+50%    16.500000
+75%    49.000000
+max    77.000000
+In [4]:
+import numpy as np
+import pandas as pd
+groups = ["Modern Web", "DevOps", np.nan, "Big Data", "Security", "自我挑戰組"]
+ironmen = [59, 9, 19, 14, 6, np.nan]
+ironmen_dict = {
+                "groups": groups,
+                "ironmen": ironmen
+}
+# 建立 data frame
+ironmen_df = pd.DataFrame(ironmen_dict)
+print(ironmen_df.loc[:, "groups"].isnull()) # 判斷哪些組的組名是遺失值
+print(ironmen_df.loc[:, "ironmen"].notnull()) # 判斷哪些組的鐵人數不是遺失值
+0    False
+1    False
+2     True
+3    False
+4    False
+5    False
+Name: groups, dtype: bool
+0     True
+1     True
+2     True
+3     True
+4     True
+5    False
+Name: ironmen, dtype: bool
+In [5]:
+ironmen_df_na_dropped = ironmen_df.dropna() # 有遺失值的觀測值都刪除
+print(ironmen_df_na_dropped)
+print("---") # 分隔線
+ironmen_df_na_filled = ironmen_df.fillna(0) # 有遺失值的觀測值填補 0
+print(ironmen_df_na_filled)
+print("---") # 分隔線
+ironmen_df_na_filled = ironmen_df.fillna({"groups": "Cloud", "ironmen": 71}) # 依欄位填補遺失值
+print(ironmen_df_na_filled)
+       groups  ironmen
+0  Modern Web     59.0
+1      DevOps      9.0
+3    Big Data     14.0
+4    Security      6.0
+---
+       groups  ironmen
+0  Modern Web     59.0
+1      DevOps      9.0
+2           0     19.0
+3    Big Data     14.0
+4    Security      6.0
+5       自我挑戰組      0.0
+---
+       groups  ironmen
+0  Modern Web     59.0
+1      DevOps      9.0
+2       Cloud     19.0
+3    Big Data     14.0
+4    Security      6.0
+5       自我挑戰組     71.0
+In [6]:
+import pandas as pd
+
+groups = ["Modern Web", "DevOps", "Cloud", "Big Data", "Security", "自我挑戰組"]
+ironmen = [59, 9, 19, 14, 6, 77]
+
+# 建立 data frame
+ironmen_df = pd.DataFrame(ironmen, columns = ["ironmen"], index = groups)
+
+# 用索引值排序
+ironmen_df.sort_index()
+Out[6]:
+ironmen
+Big Data	14
+Cloud	19
+DevOps	9
+Modern Web	59
+Security	6
+自我挑戰組	77
+In [7]:
+import pandas as pd
+
+groups = ["Modern Web", "DevOps", "Cloud", "Big Data", "Security", "自我挑戰組"]
+ironmen = [59, 9, 19, 14, 6, 77]
+
+# 建立 data frame
+ironmen_df = pd.DataFrame(ironmen, columns = ["ironmen"], index = groups)
+
+# 用數值排序
+ironmen_df.sort_values(by = "ironmen")
+Out[7]:
+ironmen
+Security	6
+DevOps	9
+Big Data	14
+Cloud	19
+Modern Web	59
+自我挑戰組	77
+iloc 利用索引來篩選資料
+loc 利用label來篩選資料
+In [8]:
+#  隨機生DataFrame 型別資料
+import pandas as pd
+import numpy as np
+frame = pd.DataFrame(np.random.rand(4,4),index=list('abcd'),columns=list('ABCD'))
+frame
+Out[8]:
+A	B	C	D
+a	0.862786	0.840593	0.149296	0.275396
+b	0.450565	0.328789	0.174159	0.885689
+c	0.577073	0.883280	0.360326	0.793569
+d	0.712488	0.015635	0.619716	0.325536
+In [9]:
+# 橫的叫列，直的叫欄
+#.loc先列後欄，中間用逗號（,）分割，例如取 a 和 A 對應的資料
+frame.loc['a','A']
+Out[9]:
+0.8627863716396345
+In [10]:
+#取前兩行對應資料
+frame.loc['a':'b',:]
+Out[10]:
+A	B	C	D
+a	0.862786	0.840593	0.149296	0.275396
+b	0.450565	0.328789	0.174159	0.885689
+In [11]:
+# 取前兩欄對應資料
+frame.loc[:,'A':'B']
+Out[11]:
+A	B
+a	0.862786	0.840593
+b	0.450565	0.328789
+c	0.577073	0.883280
+d	0.712488	0.015635
+In [12]:
+# 上面的例子取的都是連續的列和欄，取第一列和第四列,與第一欄和第四欄對應的資料
+frame.loc[['a','d'],['A','D']]
+Out[12]:
+A	D
+a	0.862786	0.275396
+d	0.712488	0.325536
+iloc 基於行索引和列索引（index，columns） 都是從 0 開始
+In [13]:
+frame.iloc[0,0]
+Out[13]:
+0.8627863716396345
+In [14]:
+# 取前兩列對應資料
+frame.iloc[0:2,:]
+Out[14]:
+A	B	C	D
+a	0.862786	0.840593	0.149296	0.275396
+b	0.450565	0.328789	0.174159	0.885689
+In [15]:
+# 取前兩列和前兩欄對應資料
+frame.iloc[0:2,0:2]
+Out[15]:
+A	B
+a	0.862786	0.840593
+b	0.450565	0.328789
+In [16]:
+#上面的例子取的都是連續的行和列，若取第一行和第四行、第一列和第四列對應的資料，則
+frame.iloc[[0,3],[0,3]]
+Out[16]:
+A	D
+a	0.862786	0.275396
+d	0.712488	0.325536
